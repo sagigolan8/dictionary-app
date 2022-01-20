@@ -1,8 +1,2 @@
-let s = "saa ()   ss sada"
-        for (let i = 0; i < s.length; i++) {
-            if(s.charAt(i) ===" "){
-            s = s.slice(0,i)
-            return
-        }
-        }
-    console.log(s);
+let a = 'hello everyone'
+console.log(a.slice(5,7));

@@ -9,12 +9,14 @@ async function getWords(csvFilePath) {
         word.partOfSpeech = getPartOfSpeech(word.word)
         word.definition = getDefinition(word.word)
         word.word = getWord(word.word)
+        word.id = nanoid()
         return word
     })
     return jsonArray
 }
 
-// getWords()
+// getWords()   
+
 
 const getPartOfSpeech = (word)=>{
     let counter = 0 
@@ -60,10 +62,11 @@ const getWord = (word)=>{
 
 async function getAll() {
     const files = fs.readdirSync('./assets')
-    await files.forEach(async(file,i)=>{ 
+    files.forEach(async(file,i)=>{ 
         try {
             file =  await getWords(`./assets/${file}`)
-            const newFile = file.map(async(word)=>{ addOrUpdateWord({ ...word, id: nanoid() })})
+            const newFile = await file.map(async(word)=>{ addOrUpdateWord({ ...word, id: nanoid() })})
+            console.log(i);
             await Promise.all(newFile);
             return file 
                
@@ -73,4 +76,18 @@ async function getAll() {
 })
 console.log('done');
 }
-getAll()
+// getAll()
+
+const getLetter = async() => {   
+    file =  await getWords(`./assets/A.csv`)
+    console.log(file.length);
+    for (let i = 0, j = 25; j < file.length ; i+= 25 , j+= 25) {
+        await addOrUpdateWord(file.slice(i,j))
+        if(i === 6000 || i === 8000)
+        setTimeout(() => {
+            
+        }, 3000);
+    }
+}   
+
+getLetter()
