@@ -1,11 +1,11 @@
 const csv = require('csvtojson')
 const fs = require('fs')
-const {nanoid} = require('nanoid')
+const { nanoid } = require('nanoid')
 const { addOrUpdateWord } = require('./server/dynamo');
 
 async function getWords(csvFilePath) {
     let jsonArray = await csv().fromFile(csvFilePath);
-    jsonArray = jsonArray.map((word)=>{
+    jsonArray = jsonArray.map((word) => {
         word.partOfSpeech = getPartOfSpeech(word.word)
         word.definition = getDefinition(word.word)
         word.word = getWord(word.word)
@@ -18,76 +18,78 @@ async function getWords(csvFilePath) {
 // getWords()   
 
 
-const getPartOfSpeech = (word)=>{
-    let counter = 0 
-    let counter2 = 0 
+const getPartOfSpeech = (word) => {
+    let counter = 0
+    let counter2 = 0
     for (let i = 0; i < word.length; i++) {
-        if(word.charAt(i) ==="("){
+        if (word.charAt(i) === "(") {
             counter++
-            if(counter === 1)
-        word = word.slice(i+1)
+            if (counter === 1)
+                word = word.slice(i + 1)
         }
     }
     for (let i = 0; i < word.length; i++) {
-        if(word.charAt(i) === ")")
-        counter2++
-            if(counter2 === 1)
-        word = word.slice(0,i)
+        if (word.charAt(i) === ")")
+            counter2++
+        if (counter2 === 1)
+            word = word.slice(0, i)
     }
-    if(!word)
-    word = "none"
+    if (!word)
+        word = "none"
     return word
 }
 
-const getDefinition = (word)=>{
-    let counter = 0 
+const getDefinition = (word) => {
+    let counter = 0
     for (let i = 0; i < word.length; i++) {
-        if(word.charAt(i) ===")"){
-        counter++
-        if(counter === 1)
-        word = word.slice(i+2)
+        if (word.charAt(i) === ")") {
+            counter++
+            if (counter === 1)
+                word = word.slice(i + 2)
         }
     }
     return word
 }
 
-const getWord = (word)=>{
+const getWord = (word) => {
     for (let i = 0; i < word.length; i++) {
-        if(word.charAt(i) ===" "){
-        word = word.slice(0,i)
-    }
+        if (word.charAt(i) === " ") {
+            word = word.slice(0, i)
+        }
     }
     return word
 }
 
 async function getAll() {
     const files = fs.readdirSync('./assets')
-    files.forEach(async(file,i)=>{ 
+    files.forEach(async (file, i) => {
         try {
-            file =  await getWords(`./assets/${file}`)
-            const newFile = await file.map(async(word)=>{ addOrUpdateWord({ ...word, id: nanoid() })})
+            file = await getWords(`./assets/${file}`)
+            const newFile = await file.map(async (word) => { addOrUpdateWord({ ...word, id: nanoid() }) })
             console.log(i);
             await Promise.all(newFile);
-            return file 
-               
+            return file
+
         } catch (error) {
-            console.log(error,i);
+            console.log(error, i);
         }
-})
-console.log('done');
+    })
+    console.log('done');
 }
 // getAll()
 
-const getLetter = async() => {   
-    file =  await getWords(`./assets/A.csv`)
+const getLetter = async (letterCode) => {
+    file = await getWords(`./assets/${String.fromCharCode(letterCode)}.csv`)
     console.log(file.length);
-    for (let i = 0, j = 25; j < file.length ; i+= 25 , j+= 25) {
-        await addOrUpdateWord(file.slice(i,j))
-        if(i === 6000 || i === 8000)
-        setTimeout(() => {
-            
-        }, 3000);
+    for (let i = 0, j = 25; i < file.length; i += 25, j += 25) {
+        if (j > file.length - 1)
+            j = file.length - 1
+        await addOrUpdateWord(file.slice(i, j))
     }
-}   
+}
+const getAllLetters = async () => {
+    for (let i = 65; i < 91; i++)
+        await getLetter(i)
+}
 
-getLetter()
+getAllLetters()

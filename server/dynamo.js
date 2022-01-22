@@ -14,7 +14,7 @@ AWS.config.update({
 const dynamoClient = new AWS.DynamoDB();
 
 // const TABLE_NAME = 'english-dictionary';
-const TABLE_NAME = 'dictionary2';
+const TABLE_NAME = 'dictionary';
 const getWords = async () => {
     const params = {
         TableName: TABLE_NAME,
@@ -34,61 +34,43 @@ const getWordById = async (id) => {
     return await dynamoClient.get(params).promise();
 };
 
-const addOrUpdateWord = async (words,i) => {
-    try {
-        const params = {
-            RequestItems: {
-                dictionary3 : words.map(({id, word, partOfSpeech, definition })=>{
-                    return {
-                        PutRequest: {
-                            Item: {
-                                id:{
-                                    S: id
-                                },
-                                word:{
-                                    S: word
-                                },
-                                partOfSpeech:{
-                                    S : partOfSpeech
-                                },
-                                definition:{
-                                    S : definition
-                                }
+const addOrUpdateWord = async (words) => {
+    const params = {
+        RequestItems: {
+            dictionary: words.map(({ id, word, partOfSpeech, definition }) => {
+                return {
+                    PutRequest: {
+                        Item: {
+                            id: {
+                                S: id
+                            },
+                            word: {
+                                S: word
+                            },
+                            partOfSpeech: {
+                                S: partOfSpeech
+                            },
+                            definition: {
+                                S: definition
                             }
+                        }
                     }
-                }})
-            }
-        };
-        console.log(params);
-        dynamoClient.batchWriteItem(params, function(err, data) {
-            if (err) {
-              console.log("Error", err);
-            } else {
-              console.log("Success", data);
-            }
-          });
-    } catch (error) {
-        console.log('error in index :' + i);
-        setTimeout(async() => {
-            await dynamoClient.batchWriteItem(params, function(err, data) {
-                if (err) {
-                  console.log("Error", err);
-                } else {
-                  console.log("Success", data);
                 }
-              });
-        }, 100);
-        console.log(error);
+            })
+        }
+    };
+    try {
+        console.log(params);
+        await dynamoClient.batchWriteItem(params).promise();
+    } catch (error) {
+        console.log('error in index :');
+        setTimeout(async () => {
+            await dynamoClient.batchWriteItem(params).promise();
+        }, 3000);
+        console.log('trying again');
     }
 };
 
-// addOrUpdateWord([
-//     {id:'1', word:'234', partOfSpeech:'234', definition:'234d' },
-//     {id:'2', word:'234', partOfSpeech:'234', definition:'234d' },
-//     {id:'3', word:'234', partOfSpeech:'234', definition:'234d' },
-//     {id:'4', word:'234', partOfSpeech:'234', definition:'234d' },
-//     {id:'5', word:'234', partOfSpeech:'234', definition:'234d' }
-// ])
 
 
 const deleteWord = async (id) => {
