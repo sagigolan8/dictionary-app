@@ -61,7 +61,9 @@ export default function Dictionary() {
   const partRef = useRef(); // part of speech
   const [newWord, setNewWord] = useState();
   const [selectedPart, setSelectedPart] = useState();
-  const [wordsDefinitions, setWordsDefinitions] = useState([]);
+  const [wordsDefinitions, setWordsDefinitions] = useState([{
+    word:'Shakshuka',definition:'very very very very very very tasty',id:'1wqdewd3frew',partOfSpeech:'n. t.'
+  }]);
 
   const renderSomething = () =>{
     if(newWord && (!selectedPart || selectedPart === 'none')) 
@@ -72,16 +74,16 @@ export default function Dictionary() {
       renderDefinitionsByEnumPart()
   }
 
-  const renderDefinitions = async () =>{
-    const definitionArray = getDefinition(newWord)
+  const renderDefinitions = async (word = newWord) =>{  // -- GET /:word
+    const definitionArray = getDefinition(word)
     setWordsDefinitions(definitionArray)
   }
-  const renderDefinitionsByPart = async () =>{
+  const renderDefinitionsByPart = async () =>{  // -- GET /:word/:partOfSpeech   
     const definitionArray = getDefinitionsByPart(newWord,selectedPart)
     setWordsDefinitions(definitionArray)
   }
 
-  const renderDefinitionsByEnumPart = async () =>{
+  const renderDefinitionsByEnumPart = async () =>{  // -- GET /part-of-speech/:part
     const definitionArray = getDefinitionsByEnumPart(selectedPart)
     setWordsDefinitions(definitionArray)
   }
@@ -131,12 +133,6 @@ export default function Dictionary() {
           inputRef={partRef}
             />
         </div>
-        {/* <TextField
-          style={{ width: "100px", margin: "5px" }}
-          type="text"
-          label="Part Of Speech"
-          variant="outlined"
-          /> */}
           <br/>
           <br/>
         <Button
@@ -150,7 +146,6 @@ export default function Dictionary() {
         </Button>
         <br/>
         <br/>
-        <br/>
         <Typography
         variant="h6"
         color="#3f51b5"
@@ -159,7 +154,7 @@ export default function Dictionary() {
         >
         Word Definition
         </Typography>
-        <Definition wordsDefinitions={wordsDefinitions}/>
+        <Definition renderDefinitions={renderDefinitions} wordsDefinitions={wordsDefinitions}/>
       </div>
        <br/>
     </div>

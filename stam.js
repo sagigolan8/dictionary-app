@@ -32,4 +32,4 @@
 
 
 let sentence = 'A univalve mollusk of the genus Halitosis.'
-
+console.log(sentence.split(' '));
