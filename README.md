@@ -24,7 +24,7 @@
         <li><a href="#built-with">Built With</a></li>
           <ul>
         <li><a href="#ide">IDE</a></li>
-        <li><a href="#frameworks-,-platforms-and-libraries">Frameworks, Platforms and Libraries</a></li>
+        <li><a href="#frameworks-platforms-and-libraries">Frameworks, Platforms and Libraries</a></li>
         <li><a href="#languages">Languages</a></li>
         <li><a href="#databases">Databases</a></li>
         <li><a href="#linters">Linters</a></li>
