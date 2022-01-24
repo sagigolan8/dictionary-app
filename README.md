@@ -27,7 +27,6 @@
         <li><a href="#frameworks-platforms-and-libraries">Frameworks, Platforms and Libraries</a></li>
         <li><a href="#languages">Languages</a></li>
         <li><a href="#databases">Databases</a></li>
-        <li><a href="#linters">Linters</a></li>
           </ul>        
       </ul>
     </li>
@@ -60,7 +59,6 @@
 * [x] `GET /:word` - if word has more than one parts of speech will return all words part of speech, else, will return a word + definition + part of speech.
 * [x] `GET /:word/:partOfSpeech` - will return a word + definition + part of speech [(noun, verb, adjectives, etc...)](https://www.dictionary.com/e/parts-of-speech/) `{updated: true}` if succeed.
 * [x] `GET /part-of-speech/:part` - for example, `/part-of-speech/adjective`, will return a random word + definition + part of speech (`part` is enum).
-* [x] `GET /part-of-speech/:part?letter=X` - for example, `/part-of-speech/noun?letter=m`, will return a random word with the same letter + definition + part of speech.
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
@@ -171,7 +169,7 @@
    <!--AWS-DynamoDB -->
 [dynamoDB-shield]: https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=for-the-badge&logo=Amazon%20DynamoDB&logoColor=white
 [dynamoDB-url]: https://aws.amazon.com/dynamodb/
-
+<!-- Linters -->
 
 
 
