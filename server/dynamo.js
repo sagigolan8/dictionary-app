@@ -114,7 +114,7 @@ const getRandomWordByPart = async (partOfSpeech) => {
         ExpressionAttributeValues: { ':p': partOfSpeech }
     };
     const { Items } = await docClient.query(params).promise();
-    return Items[Math.floor(Math.random() * Math.floor(Items.length/10))]
+    return [Items[Math.floor(Math.random() * Items.length)]]
 };
 module.exports = {
     dynamoClient,

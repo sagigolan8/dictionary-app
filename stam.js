@@ -40,4 +40,13 @@ const capitalize = (word) =>{
   }
 
 
-  console.log([].filter((a)=>a===5));
+  console.log(capitalize(String(5)));
+
+  console.log(capitalize('shachar'));
+
+
+
+  let arr = []
+  let arr2 = []
+
+  console.log(0 === arr2.length);

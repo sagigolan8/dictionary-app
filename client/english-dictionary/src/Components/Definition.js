@@ -3,10 +3,6 @@ import { nanoid } from 'nanoid';
 import Words from './Words';
 
 export default function Definition({renderDefinitions,wordsDefinitions,setSelectedPart,capitalize}) {
-  const extractWords = () => {
-    
-  }
-  
   const convertPartToWord = (part) => {
     switch (part) {
       case 'n.':
@@ -34,7 +30,7 @@ export default function Definition({renderDefinitions,wordsDefinitions,setSelect
        {wordsDefinitions.map(({definition, partOfSpeech ,word }) => ( // [word:'sddfs, definfitoin:''id, partofspeech:'n.'] 
           <div key={nanoid()}>
           <div><b>{word}:</b> ({convertPartToWord(partOfSpeech)})</div>
-          <div>
+          <div>                                   
              <span> 
             <Words
             capitalize={capitalize}
