@@ -7,7 +7,10 @@ export default function Words({renderDefinitions,words,setSelectedPart,capitaliz
       style={{cursor:'pointer',color:'#0645ad',textDecoration:'underline'}}
       onClick={()=>{
         setSelectedPart('none')
-        return renderDefinitions(capitalize(word.replace(/[^a-zA-Z ]/g, "")))
+        word = word.replace(/[^a-zA-Z ]/g, "")
+        if(!word)
+        word = '_'
+        return renderDefinitions(capitalize(word))
       }}
       >
       {word}</span>&nbsp;&nbsp;</span>)}

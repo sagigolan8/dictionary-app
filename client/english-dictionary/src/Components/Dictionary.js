@@ -35,13 +35,13 @@ const getDefinitionsByPart = async (word,part) =>{
   try{                                                      
       const definitionsArray = await axios.get(`${baseUrl}/${word}/${part}`); //except to get the words objects
       if(definitionsArray.data.length === 0){
-        niceAlert('Word doesn\'t exist in dictionary or part of speech incorrect','error')
+        niceAlert('Word doesn\'t exist in dictionary or part of speech incorrect','error',2500)
       return [{word:'',partOfSpeech:'',id:'',definition:''}]
       }
       else
       return definitionsArray.data
         } catch (err) {
-        niceAlert('Word doesn\'t exist in dictionary or part of speech incorrect','error')
+        niceAlert('Word doesn\'t exist in dictionary or part of speech incorrect','error',2500  )
         console.error(err);
     }
 }
@@ -84,11 +84,14 @@ export default function Dictionary() {
   const [wordsDefinitions, setWordsDefinitions] = useState([]);
 
   const capitalize = (word) =>{
+    if(word !== 'string')
+    String(word)
     return `${word.charAt(0).toUpperCase()}${word.slice(1)}`
   }
 
   const renderSomething = () =>{
     wordRef.current.value = ''
+    setNewWord('')
     if(newWord && (!selectedPart || selectedPart === 'none'))
      renderDefinitions(capitalize(newWord))
     else if(newWord && (selectedPart !== 'none' || selectedPart))
