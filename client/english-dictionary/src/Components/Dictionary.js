@@ -1,4 +1,5 @@
 import React,{ useRef, useState } from "react";
+import '../styles/index.scss'
 import {
   getDefinition,
   getDefinitionsByPart,
@@ -6,12 +7,16 @@ import {
 }
 from '../Services/requests'
 import { TextField, Box, Button } from "@material-ui/core";
-import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { Typography } from '@mui/material';
 import Definition from "./Definition.js";
 import Select from 'react-select'
+import Instructions from "./Instructions";
+import CircularProgress from '@mui/material/CircularProgress';
+import { niceAlert } from "../Features/NiceAlerts.js";
 
-const options = [
+
+const options = [  //select part of speech options
   { value: 'n.', label: 'Noun' },
   { value: 'p.', label: 'Pronoun' },
   { value: 'v.', label: 'Verb' },
@@ -19,14 +24,15 @@ const options = [
   { value: 'adv.', label: 'Adverb' },
   { value: 'Pr', label: 'Preposition' },
   { value: 'pl.', label: 'Plural' },
-  { value: 'interj', label: 'Interjection' },
+  { value: 'interj.', label: 'Interjection' },
   { value: 'none', label: 'None' },
 ]
 
 export default function Dictionary() {
-  const wordRef = useRef();
-  const partRef = useRef(); // part of speech
-  const [newWord, setNewWord] = useState();
+  const inputEl = useRef(); // input element
+  const selectEl = useRef(); // select element
+  const [loaderVisibility, setLoaderVisibility] = useState('none'); 
+  const [currentWord, setCurrentWord] = useState();
   const [selectedPart, setSelectedPart] = useState();
   const [wordsDefinitions, setWordsDefinitions] = useState([]);
 
@@ -37,48 +43,57 @@ export default function Dictionary() {
   }
 
   const renderSomething = () =>{
-    wordRef.current.value = ''
-    setNewWord('')
-    if(newWord && (!selectedPart || selectedPart === 'none'))
-     renderDefinitions(newWord)
-    else if(newWord && (selectedPart !== 'none' || selectedPart))
-      renderDefinitionsByPart(newWord,selectedPart)
-    if(!newWord && selectedPart && selectedPart !== 'none')
-      renderDefinitionsByEnumPart()
+    inputEl.current.value = ''
+    setCurrentWord('')
+    if(!currentWord && (!selectedPart || selectedPart === 'none')){
+      return niceAlert('Word doesn\'t exist in dictionary')
+    }
+    if(currentWord && (!selectedPart || selectedPart === 'none'))
+    renderDefinitions(currentWord)
+    else if(currentWord && (selectedPart !== 'none' || selectedPart))
+    renderDefinitionsByPart(currentWord,selectedPart)
+    if(!currentWord && selectedPart && selectedPart !== 'none')
+    renderDefinitionsByEnumPart()
   }
-
-  const renderDefinitions = async (word = newWord) =>{  // -- GET /:word
+  
+  const renderDefinitions = async (word = currentWord) =>{  // -- GET /:word
+    setLoaderVisibility('')
     const definitionArray = await getDefinition(word)
     setWordsDefinitions(definitionArray)
+    setLoaderVisibility('none')
   }
   const renderDefinitionsByPart = async () =>{  // -- GET /:word/:partOfSpeech   
-    const definitionArray = await getDefinitionsByPart(capitalize(newWord),selectedPart)
+    setLoaderVisibility('')
+    const definitionArray = await getDefinitionsByPart(capitalize(currentWord),selectedPart)
     setWordsDefinitions(definitionArray)
+    setLoaderVisibility('none')
   }
-
+  
   const renderDefinitionsByEnumPart = async () =>{  // -- GET /part-of-speech/:part
+    setLoaderVisibility('')
     const definitionArray = await getDefinitionsByEnumPart(selectedPart)
     setWordsDefinitions(definitionArray)
+    setLoaderVisibility('none')
   }
 
   const changePart = obj =>{
     setSelectedPart(obj.value)
   }
     return (
-      <div style={{textAlign: 'center'}}>
+      <div>
       <br/>
       <br/>
       <br/>
-      <br/>
-      <br/>
+      <Instructions/>
       <Box
+      style={{textAlign: 'center'}}
       component="form"
       sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-        >
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+      >
     <div className="App" style={{textAlign:'center'}}>
       <div>
       <Typography
@@ -91,24 +106,32 @@ export default function Dictionary() {
         </Typography>
         <div style={{display:'inline-block'}}>
           <TextField
-            onChange={()=>setNewWord(capitalize(wordRef.current.value))}
+            onChange={()=>setCurrentWord(capitalize(inputEl.current.value))}
             style={{ width: "200px", margin: "5px" }}
             type="text"
             label="word"
             variant="outlined"
-            inputRef = {wordRef}
+            inputRef = {inputEl}
+            onKeyPress={
+              (e)=>{
+                if(e.key === "Enter")
+                return renderSomething()
+              }
+            }
             />
           <Select
           value = {options.find((value) => value === selectedPart)}
           onChange={changePart}
           placeholder="Part Of Speech"
           options={options} 
-          inputRef={partRef}
+          inputRef={selectEl}
             />
         </div>
           <br/>
+          <CircularProgress disableShrink style={{ display: loaderVisibility }} />
           <br/>
         <Button
+        startIcon={<MenuBookIcon/>}
         onClick={()=>renderSomething()}
         variant="contained"
         color="default"

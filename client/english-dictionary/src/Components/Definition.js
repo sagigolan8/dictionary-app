@@ -1,6 +1,8 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import Words from './Words';
+import { ListGroup } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Definition({renderDefinitions,wordsDefinitions,setSelectedPart,capitalize}) {
   const convertPartToWord = (part) => {
@@ -26,9 +28,10 @@ export default function Definition({renderDefinitions,wordsDefinitions,setSelect
     }
   }
   return(
-   <div>
-       {wordsDefinitions.map(({definition, partOfSpeech ,word }) => ( // [word:'sddfs, definfitoin:''id, partofspeech:'n.'] 
-          <div key={nanoid()}>
+   <ListGroup >
+       {wordsDefinitions.map(({definition, partOfSpeech ,word }) => ( 
+          <ListGroup.Item key={nanoid()}>
+          <br/>
           <div><b>{word}:</b> ({convertPartToWord(partOfSpeech)})</div>
           <div>                                   
              <span> 
@@ -39,9 +42,10 @@ export default function Definition({renderDefinitions,wordsDefinitions,setSelect
             setSelectedPart={setSelectedPart}
             />
             </span>
+            <br/>
             </div>
-          </div>
+          </ListGroup.Item>
         ) )}
-   </div>
+   </ListGroup>
   )
 }

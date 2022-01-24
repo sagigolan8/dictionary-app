@@ -1,42 +1,16 @@
-const AWS = require('aws-sdk');
 require('dotenv').config();
-
-// AWS.config.update({
-//     region: "us-east-1",
-//     accessKeyId: "AKIA5RYPHNDP3DF6GEM6",
-//     secretAccessKey: "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",
-//     apiVersion:'2012-08-10'
-// });
+const AWS = require('aws-sdk');
 
 AWS.config.update({
-    region: "us-east-2",
-    accessKeyId: "AKIA5RYPHNDP3DF6GEM6",
-    secretAccessKey: "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",
-    apiVersion:'2012-08-10'
+    region: process.env.AWS_REGION, 
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,    
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    apiVersion:'2012-08-10' 
 });
 
 const dynamoClient = new AWS.DynamoDB();
 const docClient = new AWS.DynamoDB.DocumentClient();
-// const TABLE_NAME = 'english-dictionary';
 const TABLE_NAME = 'Dictionary';
-const getWords = async () => {
-    const params = {
-        TableName: TABLE_NAME,
-    };
-    const words = await dynamoClient.scan(params).promise();
-    return words;
-    // return words.length;
-};
-
-const getWordById = async (id) => {
-    const params = {
-        TableName: TABLE_NAME,
-        Key: {
-            id,
-        },
-    };
-    return await dynamoClient.get(params).promise();
-};
 
 const addOrUpdateWord = async (words) => {
     const params = {
@@ -75,18 +49,6 @@ const addOrUpdateWord = async (words) => {
     }
 };
 
-
-
-const deleteWord = async (id) => {
-    const params = {
-        TableName: TABLE_NAME,
-        Key: {
-            id,
-        },
-    };
-    return await dynamoClient.delete(params).promise();
-};
-
 const getWord = async (word) => {
     const params = {
         TableName: TABLE_NAME,
@@ -118,10 +80,7 @@ const getRandomWordByPart = async (partOfSpeech) => {
 };
 module.exports = {
     dynamoClient,
-    getWords,
-    getWordById,
     addOrUpdateWord,
-    deleteWord,
     getWord,
     getWordByPart,
     getRandomWordByPart,

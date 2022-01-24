@@ -1,0 +1,30 @@
+/*scroll bar*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: red;
+  background: linear-gradient(90deg, rgb(228, 218, 218), rgb(168, 151, 151));
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 6px 6px 6px rgba(0, 0, 0, 0.897);
+  // background-color: #555;
+  background: hsl(210, 30%, 0%)
+    radial-gradient(hsl(210, 30%, 20%), hsl(210, 30%, 0%));
+}
+#style-1::-webkit-hover {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 6px 6px 6px rgba(0, 0, 0, 0.3);
+  // background-color: #555;
+  background: hsl(210, 30%, 0%)
+    radial-gradient(hsl(210, 30%, 20%), hsl(210, 30%, 0%));
+}
+#styled-avatar {
+  border: 4px solid hsl(210, 30%, 0%);
+}

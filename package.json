@@ -19,7 +19,6 @@
   "homepage": "https://github.com/sagigolan8/dictionary-app#readme",
   "dependencies": {
     "csvtojson": "^2.0.10",
-    "nanoid": "^3.2.0",
-    "xlsx": "^0.17.5"
+    "nanoid": "^3.2.0"
   }
 }

@@ -1,5 +1,4 @@
 const csv = require('csvtojson')
-const fs = require('fs')
 const { nanoid } = require('nanoid')
 const { addOrUpdateWord } = require('./server/dynamo');
 
@@ -10,15 +9,10 @@ async function getWords(csvFilePath) {
         word.definition = getDefinition(word.word)
         word.word = getWord(word.word)
         word.id = nanoid()
-        // word.id = word.word
-        // word.sortKey = word.word
         return word
     })
     return jsonArray
 }
-
-// getWords()   
-
 
 const getPartOfSpeech = (word) => {
     let counter = 0
@@ -61,24 +55,6 @@ const getWord = (word) => {
     }
     return word
 }
-
-async function getAll() {
-    const files = fs.readdirSync('./assets')
-    files.forEach(async (file, i) => {
-        try {
-            file = await getWords(`./assets/${file}`)
-            const newFile = await file.map(async (word) => { addOrUpdateWord({ ...word, id: nanoid() }) })
-            console.log(i);
-            await Promise.all(newFile);
-            return file
-
-        } catch (error) {
-            console.log(error, i);
-        }
-    })
-    console.log('done');
-}
-// getAll()
 
 const getLetter = async (letterCode) => {
     file = await getWords(`./assets/${String.fromCharCode(letterCode)}.csv`)
