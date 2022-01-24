@@ -1,14 +1,16 @@
 import React from 'react';
 import { nanoid } from 'nanoid'
-export default function Words({renderDefinitions,words}) { //[ 'A', 'univalve', 'mollusk', 'of' ]
+export default function Words({renderDefinitions,words,setSelectedPart,capitalize}) { //[ 'A', 'univalve', 'mollusk', 'of' ]
   return(
    <div>
-      {words.map((word)=><><span
+      {words.map((word)=><span key={nanoid()}><span
       style={{cursor:'pointer',color:'#0645ad',textDecoration:'underline'}}
-      key={nanoid()}
-      onClick={()=>renderDefinitions(word)}
+      onClick={()=>{
+        setSelectedPart('none')
+        return renderDefinitions(capitalize(word.replace(/[^a-zA-Z ]/g, "")))
+      }}
       >
-      {word}</span>&nbsp;&nbsp;</>)}
+      {word}</span>&nbsp;&nbsp;</span>)}
   </div>
   )
 }

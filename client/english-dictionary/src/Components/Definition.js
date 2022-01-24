@@ -2,11 +2,11 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import Words from './Words';
 
-export default function Definition({renderDefinitions,wordsDefinitions}) {
+export default function Definition({renderDefinitions,wordsDefinitions,setSelectedPart,capitalize}) {
   const extractWords = () => {
     
   }
-
+  
   const convertPartToWord = (part) => {
     switch (part) {
       case 'n.':
@@ -26,21 +26,25 @@ export default function Definition({renderDefinitions,wordsDefinitions}) {
       case 'interj.':
         return 'Interjection'
       default:
-        return 'None Or Mixed Part-Of-Speech';
+        return 'none/mixed part-of-speech.';
     }
   }
   return(
    <div>
        {wordsDefinitions.map(({definition, partOfSpeech ,word }) => ( // [word:'sddfs, definfitoin:''id, partofspeech:'n.'] 
-          <>
-          <div key={nanoid()}><b>{word}</b></div>
-          <div key={nanoid()}><b>Part-Of-Speech:&nbsp;</b>{convertPartToWord(partOfSpeech)}</div>
-          <div key={nanoid()}><b>Definition:</b>
+          <div key={nanoid()}>
+          <div><b>{word}:</b> ({convertPartToWord(partOfSpeech)})</div>
+          <div>
              <span> 
-            <Words renderDefinitions={renderDefinitions} words={definition.split(' ')}/>
+            <Words
+            capitalize={capitalize}
+            renderDefinitions={renderDefinitions} 
+            words={definition.split(' ')}
+            setSelectedPart={setSelectedPart}
+            />
             </span>
             </div>
-          </>
+          </div>
         ) )}
    </div>
   )

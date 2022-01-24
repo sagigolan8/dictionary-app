@@ -10,6 +10,8 @@ async function getWords(csvFilePath) {
         word.definition = getDefinition(word.word)
         word.word = getWord(word.word)
         word.id = nanoid()
+        // word.id = word.word
+        // word.sortKey = word.word
         return word
     })
     return jsonArray

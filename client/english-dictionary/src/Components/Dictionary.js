@@ -15,10 +15,18 @@ const baseUrl = 'http://localhost:8080'
 // from '../Services/requests'
 
 const getDefinition = async (word) =>{
+  console.log(word);
   try{
       const definitionsArray = await axios.get(`${baseUrl}/${word}`); //except to get the words objects
-      return definitionsArray.data                           //send all object
-    } catch (err) {
+      console.log(definitionsArray.data.length);
+      if(definitionsArray.data.length === 0){
+        niceAlert('Word doesn\'t exist in dictionary','error')
+        return []
+        }
+        else
+        return definitionsArray.data
+      } catch (err) {
+      niceAlert('Word doesn\'t exist in dictionary','error')
       console.error(err);
     }
 }
@@ -26,16 +34,28 @@ const getDefinition = async (word) =>{
 const getDefinitionsByPart = async (word,part) =>{
   try{                                                      
       const definitionsArray = await axios.get(`${baseUrl}/${word}/${part}`); //except to get the words objects
-      return definitionsArray.data                           //send only definitions
-    } catch (err) {
-      console.error(err);
+      if(definitionsArray.data.length === 0){
+        niceAlert('Word doesn\'t exist in dictionary or part of speech incorrect','error')
+      return [{word:'',partOfSpeech:'',id:'',definition:''}]
+      }
+      else
+      return definitionsArray.data
+        } catch (err) {
+        niceAlert('Word doesn\'t exist in dictionary or part of speech incorrect','error')
+        console.error(err);
     }
 }
 
 const getDefinitionsByEnumPart = async (part) =>{
   try{
       const definitionsArray = await axios.get(`${baseUrl}/part-of-speech/${part}`); //except to get the words objects
-      return definitionsArray.data                           //send only definitions
+      console.log(definitionsArray.data);
+      if(definitionsArray.data.length === 0){
+        niceAlert('Word doesn\'t exist in dictionary','error')
+        return []
+        }
+        else
+        return definitionsArray.data
     } catch (err) {
       console.error(err);
     }
@@ -61,30 +81,34 @@ export default function Dictionary() {
   const partRef = useRef(); // part of speech
   const [newWord, setNewWord] = useState();
   const [selectedPart, setSelectedPart] = useState();
-  const [wordsDefinitions, setWordsDefinitions] = useState([{
-    word:'Shakshuka',definition:'very very very very very very tasty',id:'1wqdewd3frew',partOfSpeech:'n. t.'
-  }]);
+  const [wordsDefinitions, setWordsDefinitions] = useState([]);
+
+  const capitalize = (word) =>{
+    return `${word.charAt(0).toUpperCase()}${word.slice(1)}`
+  }
 
   const renderSomething = () =>{
-    if(newWord && (!selectedPart || selectedPart === 'none')) 
-     renderDefinitions(newWord)
+    wordRef.current.value = ''
+    if(newWord && (!selectedPart || selectedPart === 'none'))
+     renderDefinitions(capitalize(newWord))
     else if(newWord && (selectedPart !== 'none' || selectedPart))
-      renderDefinitionsByPart(newWord,selectedPart)
+      renderDefinitionsByPart(capitalize(newWord),selectedPart)
     if(!newWord && selectedPart && selectedPart !== 'none')
       renderDefinitionsByEnumPart()
   }
 
-  const renderDefinitions = async (word = newWord) =>{  // -- GET /:word
-    const definitionArray = getDefinition(word)
+  const renderDefinitions = async (word = capitalize(newWord)) =>{  // -- GET /:word
+    const definitionArray = await getDefinition(word)
+    console.log(definitionArray);
     setWordsDefinitions(definitionArray)
   }
   const renderDefinitionsByPart = async () =>{  // -- GET /:word/:partOfSpeech   
-    const definitionArray = getDefinitionsByPart(newWord,selectedPart)
+    const definitionArray = await getDefinitionsByPart(capitalize(newWord),selectedPart)
     setWordsDefinitions(definitionArray)
   }
 
   const renderDefinitionsByEnumPart = async () =>{  // -- GET /part-of-speech/:part
-    const definitionArray = getDefinitionsByEnumPart(selectedPart)
+    const definitionArray = await getDefinitionsByEnumPart(selectedPart)
     setWordsDefinitions(definitionArray)
   }
 
@@ -118,7 +142,7 @@ export default function Dictionary() {
         </Typography>
         <div style={{display:'inline-block'}}>
           <TextField
-            onChange={()=>setNewWord(wordRef.current.value)}
+            onChange={()=>setNewWord(capitalize(wordRef.current.value))}
             style={{ width: "200px", margin: "5px" }}
             type="text"
             label="word"
@@ -137,7 +161,6 @@ export default function Dictionary() {
           <br/>
         <Button
         onClick={()=>renderSomething()}
-        // startIcon={<SaveIcon/>} 
         variant="contained"
         color="default"
         size='large'
@@ -154,7 +177,11 @@ export default function Dictionary() {
         >
         Word Definition
         </Typography>
-        <Definition renderDefinitions={renderDefinitions} wordsDefinitions={wordsDefinitions}/>
+        <Definition
+        capitalize={capitalize}
+        setSelectedPart={setSelectedPart} 
+        renderDefinitions={renderDefinitions} 
+        wordsDefinitions={wordsDefinitions}/>
       </div>
        <br/>
     </div>
