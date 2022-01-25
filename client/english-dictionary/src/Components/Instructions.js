@@ -76,19 +76,19 @@ export default function Instructions() {
         <DialogContent dividers>
           <Typography gutterBottom>
             <Checkbox defaultChecked disabled></Checkbox>
-            Search Some Word Without Part Of Speech (Or Choose - None)  
+            Search Some Word <b>Without</b> Part Of Speech (<b>Or</b> Choose - None)  
           </Typography>
           <Typography gutterBottom>
             <Checkbox defaultChecked disabled></Checkbox>
-            Search Some Word By Part Of Speech 
+            Search Some Word <b>By</b> Part Of Speech 
           </Typography>
           <Typography gutterBottom>
             <Checkbox defaultChecked disabled></Checkbox>
-            Search Some Random Word Only By Part Of Speech 
+            Search Some Random Word <b>Only</b> By Part Of Speech 
           </Typography>
           <Typography gutterBottom>
             <Checkbox defaultChecked disabled></Checkbox>
-            Click Any Clickable Word To See Definition 
+            Click Any <b>Clickable</b> Word To See Definition 
           </Typography>
          
         </DialogContent>
