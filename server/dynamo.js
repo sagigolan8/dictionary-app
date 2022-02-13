@@ -2,15 +2,39 @@ require('dotenv').config();
 const AWS = require('aws-sdk');
 
 AWS.config.update({
-    region: process.env.AWS_REGION, 
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,    
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: "us-east-2", 
+    accessKeyId: "AKIA5RYPHNDP3DF6GEM6",    
+    secretAccessKey: "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",
     apiVersion:'2012-08-10' 
 });
 
 const dynamoClient = new AWS.DynamoDB();
 const docClient = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = 'Dictionary';
+
+
+/////////////////////////////////-- Cars DB --////////////////////////////////////////////////////////////////
+
+const addOrUpdateCar = async (car) => {
+    const params = {
+        TableName: 'Cars',
+        Item: car,
+    };
+    return await docClient.put(params).promise();
+};
+
+const getCarById = async (vehicleId) => {
+    const params = {
+        TableName: 'Cars',
+        Key: {
+            vehicleId,
+        },
+    };
+    return await docClient.get(params).promise();
+};
+
+/////////////////////////////////-- Cars DB --////////////////////////////////////////////////////////////////
+
 
 const addOrUpdateWord = async (words) => {
     const params = {
@@ -84,4 +108,6 @@ module.exports = {
     getWord,
     getWordByPart,
     getRandomWordByPart,
+    addOrUpdateCar,
+    getCarById
 };

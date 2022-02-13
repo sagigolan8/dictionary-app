@@ -70,4 +70,4 @@ const getAllLetters = async () => {
         await getLetter(i)
 }
 
-getAllLetters()
+// getAllLetters()
