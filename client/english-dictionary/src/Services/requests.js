@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { niceAlert } from "../Features/NiceAlerts.js";
-const baseUrl = 'http://localhost:8080'
-// const baseUrl = 'https://english-dictionary-server.herokuapp.com'
+// const baseUrl = 'http://localhost:8080'
+const baseUrl = 'https://dictionary-sagi.herokuapp.com'
 const errorMessage = 'Word doesn\'t exist in dictionary'
 
 
