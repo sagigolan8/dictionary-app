@@ -28,13 +28,13 @@ export default function Definition({renderDefinitions,wordsDefinitions,setSelect
     }
   }
   return(
-   <ListGroup >
+   <ListGroup >                                           
        {wordsDefinitions.map(({definition, partOfSpeech ,word }) => ( 
           <ListGroup.Item key={nanoid()}>
           <br/>
           <div><b>{word}:</b> ({convertPartToWord(partOfSpeech)})</div>
           <div>                                   
-             <span> 
+            <span> 
             <Words
             capitalize={capitalize}
             renderDefinitions={renderDefinitions} 

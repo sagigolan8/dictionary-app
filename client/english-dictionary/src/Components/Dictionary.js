@@ -22,7 +22,6 @@ const options = [  //select part of speech options
   { value: 'v.', label: 'Verb' },
   { value: 'a.', label: 'Adjective' },
   { value: 'adv.', label: 'Adverb' },
-  { value: 'Pr', label: 'Preposition' },
   { value: 'pl.', label: 'Plural' },
   { value: 'interj.', label: 'Interjection' },
   { value: 'none', label: 'None' },
@@ -30,16 +29,16 @@ const options = [  //select part of speech options
 
 export default function Dictionary() {
   const inputEl = useRef(); // input element
-  const selectEl = useRef(); // select element
   const [loaderVisibility, setLoaderVisibility] = useState('none'); 
   const [currentWord, setCurrentWord] = useState();
   const [selectedPart, setSelectedPart] = useState();
   const [wordsDefinitions, setWordsDefinitions] = useState([]);
 
+  
   const capitalize = (word) =>{
     if(word !== 'string')
     String(word)
-    return `${word.charAt(0).toUpperCase()}${word.slice(1)}`
+    return `${word.charAt(0).toUpperCase()}${word.slice(1).toLowerCase()}`
   }
 
   const renderSomething = () =>{
@@ -106,7 +105,9 @@ export default function Dictionary() {
         </Typography>
         <div style={{display:'inline-block'}}>
           <TextField
-            onChange={()=>setCurrentWord(capitalize(inputEl.current.value))}
+            onChange={()=>{
+              setCurrentWord(capitalize(inputEl.current.value)) 
+            }}
             style={{ width: "200px", margin: "5px" }}
             type="text"
             label="word"
@@ -124,7 +125,6 @@ export default function Dictionary() {
           onChange={changePart}
           placeholder="Part Of Speech"
           options={options} 
-          inputRef={selectEl}
             />
         </div>
           <br/>

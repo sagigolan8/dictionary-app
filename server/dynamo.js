@@ -1,6 +1,7 @@
 require('dotenv').config();
 const AWS = require('aws-sdk');
 
+
 AWS.config.update({
     region: process.env.AWS_REGION, 
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,    
@@ -13,8 +14,13 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = 'Dictionary';
 
 
-const addOrUpdateWord = async (words) => {
-    const params = {
+/**
+ * The function gets an array of 25 objects 
+ * The function Add words in chunks of 25 words in once 
+ */
+
+const addOrUpdateWord = async (words) => { 
+    const params = {             
         RequestItems: {
             Dictionary: words.map(({ id, word, partOfSpeech, definition }) => {
                 return {
@@ -60,15 +66,7 @@ const getWord = async (word) => {
     return await docClient.query(params).promise();
 };
 
-const getWordByPart = async (word) => {
-    const params = {
-        TableName: TABLE_NAME,
-        IndexName: 'word-index',
-        KeyConditionExpression: 'word = :w',
-        ExpressionAttributeValues: { ':w': word}
-    };
-    return await docClient.query(params).promise();
-};
+
 const getRandomWordByPart = async (partOfSpeech) => {
     const params = {
         TableName: TABLE_NAME,
@@ -83,6 +81,5 @@ module.exports = {
     dynamoClient,
     addOrUpdateWord,
     getWord,
-    getWordByPart,
     getRandomWordByPart,
 };

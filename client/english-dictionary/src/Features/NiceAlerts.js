@@ -1,9 +1,9 @@
 import Swal from 'sweetalert2'
 
-export const niceAlert =  (titleVal,iconVal = 'error',time = 2000) => Swal.fire({
+export const niceAlert =  (title, timer = 2000, icon = 'error') => Swal.fire({
     position: 'center',
-    icon: iconVal,
-    title: titleVal,
+    icon,
+    title,
     showConfirmButton: false,
-    timer: time
+    timer
   })

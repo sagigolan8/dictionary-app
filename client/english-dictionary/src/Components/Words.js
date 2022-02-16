@@ -1,7 +1,7 @@
 import React from 'react';
 import { nanoid } from 'nanoid'
 export default function Words({renderDefinitions,words,setSelectedPart,capitalize}) { //[ 'A', 'univalve', 'mollusk', 'of' ]
-  return(
+  return( 
    <div>
       {words.map((word)=><span key={nanoid()}><span
       style={{cursor:'pointer',color:'#0645ad',textDecoration:'underline'}}

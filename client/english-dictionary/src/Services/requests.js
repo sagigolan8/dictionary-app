@@ -6,8 +6,8 @@ const errorMessage = 'Word doesn\'t exist in dictionary'
 
 
 const getDefinition = async (word) =>{
-  try{
-      const definitionsArray = await axios.get(`${baseUrl}/${word}`); //except to get the words objects
+  try{                                           
+      const definitionsArray = await axios.get(`${baseUrl}/${word}`); 
       if(definitionsArray.data.length === 0)
         niceAlert(errorMessage)
         return definitionsArray.data 
@@ -19,7 +19,7 @@ const getDefinition = async (word) =>{
 
 const getDefinitionsByPart = async (word,part) =>{
   try{                                                      
-      const definitionsArray = await axios.get(`${baseUrl}/${word}/${part}`); //except to get the words objects
+      const definitionsArray = await axios.get(`${baseUrl}/${word}/${part}`); 
       if(definitionsArray.data.length === 0)
         niceAlert(`${errorMessage} or part of speech incorrect`,2500)
       return definitionsArray.data
@@ -31,7 +31,7 @@ const getDefinitionsByPart = async (word,part) =>{
 
 const getDefinitionsByEnumPart = async (part) =>{
   try{
-      const definitionsArray = await axios.get(`${baseUrl}/part-of-speech/${part}`); //except to get the words objects
+      const definitionsArray = await axios.get(`${baseUrl}/part-of-speech/${part}`); 
       if(definitionsArray.data.length === 0)
         niceAlert(errorMessage)
       return definitionsArray.data
