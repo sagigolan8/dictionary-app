@@ -1,8 +1,8 @@
 const csv = require('csvtojson')
 const { nanoid } = require('nanoid')
-const { addOrUpdateWord } = require('./server/dynamo');
+const { addOrUpdateWord } = require('../server/dynamo');
 
-async function getWords(csvFilePath) {
+async function getWords(csvFilePath) { 
     let jsonArray = await csv().fromFile(csvFilePath);
     jsonArray = jsonArray.map((word) => {
         word.partOfSpeech = getPartOfSpeech(word.word)
