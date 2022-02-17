@@ -81,7 +81,7 @@
 
 ## Architecture
 
-![Architecture](./images/Architecture-Dictionary.png)
+![Architecture](./images/Dictionary-Architecture.png)
 
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
