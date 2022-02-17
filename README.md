@@ -27,6 +27,7 @@
         <li><a href="#frameworks-platforms-and-libraries">Frameworks, Platforms and Libraries</a></li>
         <li><a href="#languages">Languages</a></li>
         <li><a href="#databases">Databases</a></li>
+        <li><a href="#deployment">Deployment</a></li>
           </ul>        
       </ul>
     </li>
@@ -101,6 +102,11 @@
 - #### Databases
   [![DynamoDB][dynamoDB-shield]][dynamoDB-url]
   
+
+<p style= "text-align:right">(<a href="#top">back to top</a>)</p>
+
+- #### Deployment
+- [x] [DictionaryApp](https://english-dictionary-sagi.s3.us-east-2.amazonaws.com/index.html)   
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 

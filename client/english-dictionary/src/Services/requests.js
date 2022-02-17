@@ -17,6 +17,7 @@ const getDefinition = async (word) =>{
     }
 }
 
+
 const getDefinitionsByPart = async (word,part) =>{
   try{                                                      
       const definitionsArray = await axios.get(`${baseUrl}/${word}/${part}`); 
