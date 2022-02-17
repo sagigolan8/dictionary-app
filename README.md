@@ -21,6 +21,7 @@
     <li><a href="#database">Database</a></li>
     <li><a href="#server-requirements">Server Requirements</a></li>
     <li><a href="#client-requirements">Client Requirements</a></li>
+    <li><a href="#architecture">Architecture</a></li>
         <li><a href="#built-with">Built With</a></li>
           <ul>
         <li><a href="#ide">IDE</a></li>
@@ -74,6 +75,13 @@
     - `/part-of-speech/:part` - `part` is enum URL parameter, used to request backend api.
     - Each word in dictionary is clickable and will redirect to a common URL.
     - **BONUS** should be deployed to `S3 bucket`.
+
+
+<p style= "text-align:right">(<a href="#top">back to top</a>)</p>
+
+## Architecture
+
+![Architecture](./images/Architecture-Dictionary.png)
 
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
