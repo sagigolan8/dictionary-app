@@ -7,8 +7,8 @@
 
 <!-- PROJECT LOGO -->
 </br>
-<div style= "text-align:center">
-    <img target="blank" style="cursor: default;" src="https://www.coachingpositiveperformance.com/wp-content/uploads/2015/11/rsz_contextualised-lists.png" alt="Logo" width="80" height="80">
+<div style= "text-align:center;cursor: default;">
+    <img target="blank" src="https://www.coachingpositiveperformance.com/wp-content/uploads/2015/11/rsz_contextualised-lists.png" alt="Logo" width="80" height="80">
 </div>
 
 <!-- TABLE OF CONTENTS -->
