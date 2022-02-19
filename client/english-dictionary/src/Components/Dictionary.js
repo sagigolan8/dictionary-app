@@ -150,10 +150,10 @@ export default function Dictionary() {
         Word Definition
         </Typography>
         <Definition
-        capitalize={capitalize}
-        setSelectedPart={setSelectedPart} 
-        renderDefinitions={renderDefinitions} 
-        wordsDefinitions={wordsDefinitions}
+          capitalize={capitalize}
+          setSelectedPart={setSelectedPart} 
+          renderDefinitions={renderDefinitions} 
+          wordsDefinitions={wordsDefinitions}
         />
       </div>
        <br/>
