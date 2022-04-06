@@ -76,7 +76,7 @@
 
 ## Architecture
 
-![Architecture](./images/DIctionaryAppArchitecture.png)
+![Architecture](./assets/DIctionaryAppArchitecture.png)
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
