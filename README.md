@@ -2,9 +2,6 @@
 
 <div id="top"></div>
 
-
-
-
 <!-- PROJECT LOGO -->
 </br>
 <div style= "text-align:center;cursor: default;">
@@ -53,7 +50,6 @@
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
-
 ## Server Requirements
 
 - Build a REST API with the following end point(s):
@@ -70,19 +66,17 @@
 
 - [x] Build a `create-react-app` english dictionary app (mobile first)
 - [x] URL routes:
-    - `/:word` - dynamic route - `word` is dynamic URL parameter, used to request backend api.
-    - `/:word/:partOfSpeech` - dynamic route - `word` is dynamic URL parameter, used to request backend api.
-    - `/part-of-speech/:part` - `part` is enum URL parameter, used to request backend api.
-    - Each word in dictionary is clickable and will redirect to a common URL.
-    - **BONUS** should be deployed to `S3 bucket`.
-
+  - `/:word` - dynamic route - `word` is dynamic URL parameter, used to request backend api.
+  - `/:word/:partOfSpeech` - dynamic route - `word` is dynamic URL parameter, used to request backend api.
+  - `/part-of-speech/:part` - `part` is enum URL parameter, used to request backend api.
+  - Each word in dictionary is clickable and will redirect to a common URL.
+  - **BONUS** should be deployed to `S3 bucket`.
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
 ## Architecture
 
-![Architecture](./images/Dictionary-Architecture.png)
-
+![Architecture](./images/DIctionaryAppArchitecture.png)
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
@@ -93,13 +87,16 @@
   [![Vscode][vscode-shield]][vscode-url]
 
 - #### Frameworks, Platforms and Libraries
+
   [![AWS][aws-shield]][aws-url]
   [![React][react-shield]][react-url]
   [![Npm][npm-shield]][npm-url]
   [![Nodejs][nodejs-shield]][nodejs-url]
   [![Express][express-shield]][express-url]
-  [![Mui][mui-shield]][mui-url]
+  [![ReactRouter][react-router-shield]][react-router-url]
   [![Css3][css3-shield]][css3-url]
+  [![SASS][sass-shield]][sass-url]
+  [![Mui][mui-shield]][mui-url]
   [![Bootstrap][bootstrap-shield]][bootstrap-url]
 
 - #### Languages
@@ -108,13 +105,12 @@
   [![JavaScript][javascript-shield]][javascript-url]
 
 - #### Databases
-  [![DynamoDB][dynamoDB-shield]][dynamoDB-url]
-  
+  [![DynamoDB][dynamodb-shield]][dynamodb-url]
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
 - #### Deployment
-- [x] [DictionaryApp](https://english-dictionary-sagi.s3.us-east-2.amazonaws.com/index.html)   
+- [x] [English-Dictionary-Website](https://english-dictionary-sagi.s3.us-east-2.amazonaws.com/index.html)
 
 <p style= "text-align:right">(<a href="#top">back to top</a>)</p>
 
@@ -153,12 +149,23 @@
 [react-shield]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [react-url]: https://reactjs.org/
 
+<!--React-router  -->
+
+[react-router-shield]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[react-router-url]: https://reactrouter.com/
+
 <!-- Mui -->
 
 [mui-shield]: https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white
 [mui-url]: https://mui.com/
 
+<!-- Sass -->
+
+[sass-shield]: https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white
+[sass-url]: https://sass-lang.com/
+
 <!-- Css3 -->
+
 [css3-shield]: https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white
 [css3-url]: https://en.wikipedia.org/wiki/CSS
 
@@ -181,11 +188,8 @@
 
 <!-- Databases -->
    <!--AWS-DynamoDB -->
-[dynamoDB-shield]: https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=for-the-badge&logo=Amazon%20DynamoDB&logoColor=white
-[dynamoDB-url]: https://aws.amazon.com/dynamodb/
+
+[dynamodb-shield]: https://img.shields.io/badge/Amazon%20DynamoDB-4053D6?style=for-the-badge&logo=Amazon%20DynamoDB&logoColor=white
+[dynamodb-url]: https://aws.amazon.com/dynamodb/
+
 <!-- Linters -->
-
-
-
-
-
